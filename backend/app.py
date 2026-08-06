@@ -71,3 +71,7 @@ def init_db():
 if __name__ == '__main__':
     init_db()
     app.run(debug=True, port=5000)
+
+@app.route('/')
+def home():
+    return {"status": "Backend API is running live!"}

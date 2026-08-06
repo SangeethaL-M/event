@@ -3,8 +3,12 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useParams, N
 import axios from 'axios';
 
 // Axios Instance Configuration
+// Base API URL configuration
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:5000';
+
+// Axios Instance Configuration
 const API = axios.create({
-  baseURL: 'http://127.0.0.1:5000/api',
+  baseURL: `${API_BASE_URL}/api`,
 });
 
 API.interceptors.request.use((config) => {
