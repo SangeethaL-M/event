@@ -1,11 +1,10 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useParams, Navigate } from 'react-router-dom';
 import axios from 'axios';
+import API from './services/api';
 
 // Axios Instance Configuration
-const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  ? 'http://127.0.0.1:5000'
-  : 'https://event-nexus-backend-co38.onrender.com';
+const API_BASE_URL = 'https://event-nexus-backend-co38.onrender.com';
 
 const API = axios.create({
   baseURL: `${API_BASE_URL}/api`,
@@ -989,13 +988,13 @@ function AdminPanel() {
   });
   useEffect(() => {
     // Fetch stats
-    fetch('http://127.0.0.1:5000/api/admin/stats')
+    API.get('/admin/stats')
       .then((res) => res.json())
       .then((data) => setStats(data))
       .catch((err) => console.error('Error fetching stats:', err));
 
     // Fetch users
-    fetch('http://127.0.0.1:5000/api/admin/users')
+    API.get('/admin/users')
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) setUsers(data);
@@ -1068,7 +1067,7 @@ const exportToCSV = () => {
 
   useEffect(() => {
     // Fetch registered users from backend
-    fetch('http://127.0.0.1:5000/api/admin/users')
+    API.get('/admin/users')
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) setUsers(data);
