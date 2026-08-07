@@ -3,21 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useParams, N
 import axios from 'axios';
 import API from './services/api';
 
-// Axios Instance Configuration
-const API_BASE_URL = 'https://event-nexus-backend-co38.onrender.com';
-
-const API = axios.create({
-  baseURL: `${API_BASE_URL}/api`,
-});
-
-API.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
 // Authentication & Theme Context
 const AuthContext = createContext();
 
