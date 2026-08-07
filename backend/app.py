@@ -66,7 +66,7 @@ def init_db():
             ]
             db.session.add_all(sample_events)
             
-        db.session.commit()
+            db.session.commit()
 
 init_db()
 
