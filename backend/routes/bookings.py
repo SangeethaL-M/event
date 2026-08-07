@@ -93,28 +93,34 @@ def create_booking(event_id=None):
     except Exception as e:
         db.session.rollback()
         return jsonify({'message': 'Error saving booking'}), 500
-
+    
 
 @bookings_bp.route('', methods=['GET'])
 @bookings_bp.route('/my', methods=['GET'])
 @jwt_required()
-def get_user_bookings(current_user):
-    user_bookings = Booking.query.filter_by(user_id=current_user.id).all()
-    result = []
-    for b in user_bookings:
-        event = Event.query.get(b.event_id)
-        result.append({
-            'id': b.id,
-            'event_id': b.event_id,
-            'event_title': event.title if event else 'Event',
-            'event_date': event.date if event else 'N/A',
-            'venue': event.venue if event else 'N/A',
-            'tickets': b.tickets,
-            'total_amount': b.total_amount,
-            'status': b.status
-        })
-    return jsonify(result), 200
+def get_user_bookings():
+    try:
+        current_user_id = get_jwt_identity()
+        user_bookings = Booking.query.filter_by(user_id=current_user_id).all()
+        result = []
+        for b in user_bookings:
+            event = Event.query.get(b.event_id)
+            result.append({
+                'id': b.id,
+                'event_id': b.event_id,
+                'event_title': event.title if event else 'Event',
+                'event_date': event.date if event else 'N/A',
+                'venue': event.venue if event else 'N/A',
+                'tickets': b.tickets,
+                'total_amount': b.total_amount,
+                'status': b.status
+            })
+        return jsonify(result), 200
+    except Exception as e:
+        print("Error fetching bookings:", str(e))
+        return jsonify({'message': 'Failed to fetch bookings'}), 500
 
+    
 @bookings_bp.route('/<int:booking_id>', methods=['DELETE'])
 @jwt_required()
 def cancel_booking(booking_id):
