@@ -4,9 +4,9 @@ import axios from 'axios';
 
 // Axios Instance Configuration
 // Base API URL configuration
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:5000';
+// Replace line 6/9 with your exact Render backend URL:
+export const API_BASE_URL = 'https://event-nexus-backend-co38.onrender.com';
 
-// Axios Instance Configuration
 const API = axios.create({
   baseURL: `${API_BASE_URL}/api`,
 });
