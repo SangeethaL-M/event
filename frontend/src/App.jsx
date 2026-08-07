@@ -3,13 +3,10 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useParams, N
 import axios from 'axios';
 
 // Axios Instance Configuration
-// Base API URL configuration
 const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
   ? 'http://127.0.0.1:5000'
   : 'https://event-nexus-backend-co38.onrender.com';
 
-export default API_BASE_URL;
-// Axios Instance Configuration
 const API = axios.create({
   baseURL: `${API_BASE_URL}/api`,
 });

@@ -8,7 +8,6 @@ const API = axios.create({
   baseURL: `${API_BASE_URL}/api`,
 });
 
-// Interceptor to attach token automatically with "Bearer " prefix
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
