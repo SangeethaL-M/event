@@ -974,17 +974,16 @@ function AdminPanel() {
   useEffect(() => {
     // Fetch stats
     API.get('/admin/stats')
-      .then((res) => res.json())
-      .then((data) => setStats(data))
-      .catch((err) => console.error('Error fetching stats:', err));
-
+  .then(res => {
+    setStats(res.data); // res.data already contains the JSON!
+  })
+  .catch(err => console.error("Error fetching stats:", err));
     // Fetch users
     API.get('/admin/users')
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data)) setUsers(data);
-      })
-      .catch((err) => console.error('Error fetching users:', err));
+  .then(res => {
+    setUsers(res.data); // res.data already contains the JSON!
+  })
+  .catch(err => console.error("Error fetching users:", err));
   }, []);
   const [msg, setMsg] = useState('');
 
@@ -1053,11 +1052,10 @@ const exportToCSV = () => {
   useEffect(() => {
     // Fetch registered users from backend
     API.get('/admin/users')
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data)) setUsers(data);
-      })
-      .catch((err) => console.error('Error fetching users:', err));
+  .then(res => {
+    setUsers(res.data); // res.data already contains the JSON!
+  })
+  .catch(err => console.error("Error fetching users:", err));
   }, []);
   return (
     <div className="p-8 max-w-6xl mx-auto space-y-8">
