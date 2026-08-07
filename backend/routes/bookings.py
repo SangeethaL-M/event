@@ -97,8 +97,9 @@ def create_booking(event_id=None):
 
 @bookings_bp.route('', methods=['GET'])
 @bookings_bp.route('/my', methods=['GET'])
-def get_user_bookings():
-    user_bookings = Booking.query.filter_by(user_id=1).all()
+@jwt_required()
+def get_user_bookings(current_user):
+    user_bookings = Booking.query.filter_by(user_id=current_user.id).all()
     result = []
     for b in user_bookings:
         event = Event.query.get(b.event_id)
