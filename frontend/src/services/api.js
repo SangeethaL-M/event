@@ -1,7 +1,11 @@
 import axios from 'axios';
 
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://127.0.0.1:5000'
+  : 'https://event-nexus-backend-co38.onrender.com';
+
 const API = axios.create({
-  baseURL: 'http://127.0.0.1:5000/api',
+  baseURL: `${API_BASE_URL}/api`,
 });
 
 // Interceptor to attach token automatically with "Bearer " prefix
